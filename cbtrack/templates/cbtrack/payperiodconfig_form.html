@@ -1,0 +1,23 @@
+{% extends "cbtrack/base_generic.html" %}
+
+{% block jumbotron %}
+    <div class="jumbotron p-3 p-md-5 text-white rounded bg-warning">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4 font-italic">Configure default pay period options</h1>
+                <p class="lead my-3">
+                    This form allows employers to set their pay period configuration
+                    details to their preferences
+                </p>
+            </div>
+        </div>
+{% endblock jumbotron %}
+
+{% block main %}
+    {% load crispy_forms_tags %}
+    <div class="shadow-sm p-3 mb-2 bg-white">
+    	<form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </div>
+{% endblock main %}

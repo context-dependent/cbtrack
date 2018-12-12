@@ -1,0 +1,109 @@
+{% extends "cbtrack/base_generic.html" %}
+
+{% block links %}
+
+{% endblock links %}
+
+{% block main %}
+    
+    <div class="row-fluid">
+        
+    <div class="card shadow-sm">
+    <h5 class="card-header bg-info text-light">My 
+        {% if perms.cbtrack.service_detail_admin %}
+        Candidates
+        {% elif perms.cbtrack.employment_detail_admin %}
+        Employees
+        <a href="{% url 'cbtrack:verified-list' %}" class="btn btn-info btn-circle shadow-sm float-right m-0">
+            <i class="fas fa-search text-white"></i>
+        </a>
+        {% endif %}
+
+        <a href="{% url 'cbtrack:candidate_create' %}" class="btn btn-info btn-circle shadow-sm float-right m-0">
+            <i class="fas fa-plus text-white"></i>
+        </a>
+       
+    </h5>
+        <table class="table">
+        <tr>
+            <th>Name</th>
+            {% if perms.cbtrack.service_detail_admin %}
+            <th>Visible on</th>
+            {% elif perms.cbtrack.employment_detail_admin %}
+            <th>Position</th>
+            <th>Start date</th>
+            <th>Hours worked</th>
+            {% endif %}
+        </tr>
+        {% for detail in my_candidates %}
+        <tr>
+            <td>
+                <a 
+                    href="{% url 'cbtrack:candidate-detail' detail.candidate.pk %}" 
+                    class="text-secondary"
+                >
+                    {{ detail.candidate.first_name }} {{ detail.candidate.last_name }}    
+                </a>
+            </td>
+            {% if perms.cbtrack.service_detail_admin %}
+            <td>
+                <span class="badge {% if detail.verified_list %}badge-warning{% else %}badge-grey{% endif %}">
+                    Verified List
+                </span>                     
+                <span class="badge {% if detail.job_board %}badge-warning{% else %}badge-light{% endif %}">
+                    Job board
+                </span> 
+            </td>
+            {% elif perms.cbtrack.employment_detail_admin %}
+            <td>{{ detail.job_title }}</td>
+            <td>{{ detail.job_start_date }}</td>
+            <td>{{ detail.get_hours_worked.hours__sum }}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    </div>
+    {% if perms.cbtrack.employment_detail_admin %}
+    <div class="card mt-1">
+{# List of pay periods with summarised, links to payroll records for the period #} 
+{% if perms.cbtrack.employment_detail_admin %}
+    <h5 class="card-header text-light bg-info">
+        My pay periods
+        <a href="{% url 'cbtrack:pay-period_create' %}" class="btn btn-info btn-circle shadow-sm float-right m-0">
+            <i class="fas fa-plus text-white"></i>
+        </a>
+    </h5>
+    <table class="table">
+        <tr>
+            <th>Start</th>
+            <th>End</th>
+            <th>Total Trade Hours</th>
+            <th>Records</th>
+        </tr>
+        {% for pay_period in user.payperiod_set.all %}
+        <tr>
+            <td>{{ pay_period.start_date }}</td>
+            <td>{{ pay_period.end_date }}</td>
+            <td>{{ pay_period.trade_hours }}</td>
+            
+            <td>
+                <a 
+                 href="{% url 'cbtrack:manage-records' pay_period.pk %}"
+                 class="btn btn-primary float-right" 
+                >   
+                    {{ pay_period.payrollrecord_set.count }}
+                    <i class="fas fa-pencil text-white"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    {% endif %}
+    {% endif %}
+{% endblock main %}
+
+{% block sidebar %}
+
+{% endblock sidebar %}

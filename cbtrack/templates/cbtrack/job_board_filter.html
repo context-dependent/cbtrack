@@ -1,0 +1,61 @@
+{% extends "cbtrack/base_generic.html" %}
+
+{% block main %}
+    {% for post in filter.qs %}
+            <div class="card mb-1">  
+                    <h5 class="card-header text-dark bg-light">
+                        {{ post.post_title }}
+                        <div class="text-muted float-right ">
+                            Added {{ post.candidate.date_added|date:"M d, y" }}
+                        </div> 
+                    </h5>
+                <div class="card-body">
+                    
+                <p><span class="text-muted">About me</span><br>{{ post.about_me }}</p>
+                <p class="text-muted">How I can help</p>
+                <p>{{ post.how_help }}</p>
+                <p class="text-muted">Preferred trades</p>
+                {% for trade in post.top_trade.all %}
+                    <span class="badge badge-info">
+                        <i class="{{ trade.fa_icon }}"></i> 
+                        {{ trade }}
+                    </span>
+                {% endfor %}
+                <hr>
+                <p class="text-muted">
+                    Contact <a href="{% url 'cbtrack:profile-detail' post.service_provider.profile.pk %}">{{ post.service_provider.profile.org_name }}</a> to learn more!
+                </p>
+                </div>            
+            </div>
+    {% endfor %}
+{% endblock main %}
+{% load widget_tweaks %}
+{% block sidebar %}
+    <div class="shadow-sm p-3 mb-2 bg-white rounded">
+        <h4>Filter Posts</h4>
+
+        <form method="get">
+            {% csrf_token %}
+            <div class="form-group">
+                {% render_field filter.form.candidate__date_added class="form-control" placeholder="Date registered"%}
+            </div>
+            <div class="form-group">
+                {% render_field filter.form.service_provider__profile__org_name class="form-control" placeholder="Service provider org." %}
+            </div>
+            <div class="form-group">
+                <p class="text-muted">Trade picks</p>
+                <div>
+                {% for trade in filter.form.top_trade %}
+                    <label class="checkbox">
+                        {{ trade.tag }} {{ trade.choice_label }}
+                    </label>
+                {% endfor %}
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+    </div>
+{% endblock sidebar %}

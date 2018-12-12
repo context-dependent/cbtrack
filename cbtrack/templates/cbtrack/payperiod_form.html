@@ -1,0 +1,17 @@
+{% extends "cbtrack/base_generic.html" %}
+
+{% block main %}
+    {% load crispy_forms_tags %}
+    <div class="card">
+        <h4 class="card-header text-light bg-info">
+            Create a new pay period
+        </h4>
+        <div class="card-body">
+            
+        <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Submit" class="btn btn-primary">
+        </div>
+    </div>
+{% endblock main %}

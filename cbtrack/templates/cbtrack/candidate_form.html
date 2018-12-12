@@ -1,0 +1,20 @@
+{% extends "cbtrack/base_generic.html" %}
+
+
+{% block main %}
+    {% load crispy_forms_tags %}
+    <div class="card">
+        <h5 class="card-header bg-info text-light">Register a new candidate</h5>
+        <div class="card-body">
+            
+        <form action="" method="post">
+        {% csrf_token %}
+        {% crispy form %}
+        {% if perms.cbtrack.service_detail_admin %}
+            <input type="submit" class="btn btn-primary" value="Add service details" />
+        {% elif perms.cbtrack.employment_detail_admin %}
+            <input type="submit" class="btn btn-primary" value="Add employment details"/>
+        {% endif %}
+        </div>
+    </div>
+{% endblock main %}

@@ -1,0 +1,13 @@
+{% extends "cbtrack/base_generic.html" %}
+
+
+{% block main %}
+    {% load crispy_forms_tags %}
+    <div class="card bg-white">
+        <h5 class="card-header bg-info text-light">Enter hours</h5>
+    </div>
+    	{% csrf_token %}
+    	{% crispy formset helper %}
+
+
+{% endblock main %}

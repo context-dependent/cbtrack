@@ -1,0 +1,11 @@
+{% extends "cbtrack/base_generic.html" %}
+
+{% block main %}
+    {% load crispy_forms_tags %}
+    <div class="shadow-sm p-3 mb-2 bg-white">
+    	<form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+	    <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
+{% endblock main %}

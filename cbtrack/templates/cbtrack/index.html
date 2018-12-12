@@ -1,0 +1,27 @@
+{% extends "cbtrack/base_generic.html" %}
+
+{% block main %}
+	<h4>My 
+		{% if perms.cbtrack.service_detail_admin %}
+		Candidates
+		{% elif perms.cbtrack.employment_detail_admin %}
+		Employees
+		{% endif %}
+	</h4>
+    <table class="table">
+    	<tr>
+    		<th>First Name</th>
+    		<th>Last Name</th>
+    		<th>Email</th>
+            <th></th>
+    	</tr>
+    	{% for service_detail in filter.qs %}
+        <tr>
+    		<td>{{ service_detail.candidate.first_name }}</td>
+			<td>{{ service_detail.candidate.last_name }}</td>
+			<td>{{ service_detail.candidate.email }}</td>
+            <td><button type="button" class="btn btn-primary float-right" value=''><i class="fas fa-plus text-white"></i></button></td>
+        </tr>
+    	{% endfor %}
+    </table>
+{% endblock main %}

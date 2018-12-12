@@ -1,0 +1,40 @@
+{% extends "cbtrack/base_generic.html" %}
+
+{% block main %}
+	<div class="card">
+{# List of pay periods with summarised, links to payroll records for the period #} 
+	<h5 class="card-header text-light bg-info">
+		Pay periods
+		<a href="{% url 'cbtrack:pay-period_create' %}" class="btn btn-info btn-circle shadow-sm float-right m-0">
+            <i class="fas fa-plus text-white"></i>
+        </a>
+	</h5>
+	<table class="table">
+    	<tr>
+    		<th>Start</th>
+    		<th>End</th>
+    		<th>Total Trade Hours</th>
+    		<th>Records</th>
+    	</tr>
+    	{% for pay_period in pay_period_list %}
+    	<tr>
+    		<td>{{ pay_period.start_date }}</td>
+			<td>{{ pay_period.end_date }}</td>
+			<td>{{ pay_period.trade_hours }}</td>
+			
+			<td>
+				<a 
+				 href="{% url 'cbtrack:manage-records' pay_period.pk %}"
+				 class="btn btn-primary float-right" 
+				>	
+					{{ pay_period.payrollrecord_set.count }}
+					<i class="fas fa-pencil text-white"></i>
+				</a>
+			</td>
+    	</tr>
+    	{% endfor %}
+    </table>
+	</div>
+
+{% endblock main %}
+

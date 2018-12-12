@@ -1,0 +1,23 @@
+{% extends "cbtrack/base_generic.html" %}
+
+{% block main %}
+    
+<div class="card">
+    <h5 class="card-header bg-info text-light">
+        {{profile.user.first_name}} {{profile.user.last_name}}
+    </h5>
+
+<div class="card-body">
+<p class="text-muted">{{profile.role}} at {{profile.org_name}}</p>
+<p>{{profile.user.email}}</p>
+<p>{{profile.phone}}</p>
+<div class="d-flex">
+    <hr class="my-auto flex-grow-1">
+    <div class="px-4">ORG DESCRIPTION</div>
+    <hr class="my-auto flex-grow-1">
+</div> 
+<p>{{profile.org_description}}</p>
+</div>
+</div>
+
+{% endblock main %}

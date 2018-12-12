@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block title %}<title>Community Benefits Tracker</title>{% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!-- Add additional CSS in static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cbtrack/css/styles.css' %}">
+</head>
+<body>
+        
+    {% block topnav %}
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <div class="col-md-4">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="{% url 'cbtrack:index' %}">
+                    {% block pagetitle %}
+                        Community Benefits Evaluation Portal
+                    {% endblock %}
+                </a>
+                </li>
+            </ul>
+            </div>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cbtrack:index' %}">
+                    <i class="fa fa-home"></i> 
+                    Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cbtrack:verified-list' %}">   Verified List
+                </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cbtrack:job-board' %}"> 
+                    Job Board
+                </a>
+                </li>
+                {% if perms.cbtrack.employment_detail_admin %}
+                <li class="nav-item">
+                     <a href="{% url 'cbtrack:hours-tracker' %}" class="nav-link">
+                    Track hours
+                </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="mx-auto order-0">
+            <a class="navbar-brand mx-auto" href="#"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            
+                <li class="nav-item">
+                {% if user.is_authenticated %}
+                    <a class="nav-link text-muted" href="#">
+                        <i class="fas fa-user"></i> 
+                        {{ user.get_username }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-muted" href="{% url 'logout' %}?next={{ request.path }}"> | Logout</a>
+                    
+                {% else %}
+                    <a href="{% url 'login' %}?next={{ request.path }}" class="nav-link float-right">Login</a>
+                {% endif %}
+                </li>
+        </ul>
+    </div>
+    </nav>
+    {% endblock %}
+    <main role="main" class="container-fluid bg-light pt-1 fill">
+        
+    <div class="row fill bg-light" style="min-height: 100%; height: 100%">
+        <div class="col-md-2">
+            {% block links %}
+            {% endblock links %}
+        </div>
+        <div class="col-md-8">
+            {% block main %}
+            {% endblock %}
+        </div>
+        <aside class="col-md-2">
+            {% block sidebar %}
+            {% endblock %}
+        </aside>
+    </div>
+    </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<script type="text/javascript">
+    if(typeof $().emulateTransitionEnd == 'function') {
+        console.log("Bootstrap loaded")
+    } else {
+        console.log("Bootstrap not loaded")
+    }
+    
+</script>
+</body>
+</html>

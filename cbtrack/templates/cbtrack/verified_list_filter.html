@@ -1,0 +1,58 @@
+{% extends "cbtrack/base_generic.html" %}	
+
+{% block jumbotron %}
+    <div class="jumbotron p-3 p-md-5 text-white rounded bg-primary">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 font-italic">Verified List</h1>
+            <p class="lead my-3">
+                Use this page to check if your existing employees have already been verified as Community Benefits Candidates
+            </p>
+        </div>
+    </div>
+{% endblock jumbotron %}
+
+{% block main %}
+<div class="card">
+    <h5 class="card-header bg-info text-light">Verified candidates</h5>
+    <table class="table">
+    	<tr>
+    		<th>First Name</th>
+    		<th>Last Name</th>
+    		<th>Email</th>
+            <th></th>
+    	</tr>
+    	{% for service_detail in filter.qs %}
+        <tr>
+    		<td>{{ service_detail.candidate.first_name }}</td>
+			<td>{{ service_detail.candidate.last_name }}</td>
+			<td>{{ service_detail.candidate.email }}</td>
+            <td><a href="{% url 'cbtrack:employment-detail_create' service_detail.candidate.pk %}" class="btn btn-primary float-right" value=''><i class="fas fa-plus text-white"></i></a></td>
+        </tr>
+    	{% endfor %}
+    </table>
+</div>
+{% endblock main %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+{% block sidebar %}
+    <div class="shadow-sm p-3 mb-2 bg-white rounded">
+        <h4>Filter Candidates</h4>
+
+        <form method="get">
+            {% csrf_token %}
+            <div class="form-group">
+                {% render_field filter.form.candidate__first_name class="form-control" placeholder="First name"%}
+            </div>
+            <div class="form-group">
+                {% render_field filter.form.candidate__last_name class="form-control" placeholder="Last name" %}
+            </div>
+            <div class="form-group">
+                {% render_field filter.form.candidate__email class="form-control" placeholder="Email"%}
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+    </div>
+{% endblock sidebar %}

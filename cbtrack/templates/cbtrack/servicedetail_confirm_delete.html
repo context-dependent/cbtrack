@@ -1,0 +1,9 @@
+{% extends "cbtrack/candidate_detail.html" %}
+
+{% block main %}
+    <form action="" class="" method="post">
+    	{% csrf_token %}
+    	<p>Are you sure you want to delete {{ object.post_title }}</p>
+    	<input type="submit" value="Confirm">
+    </form>
+{% endblock main %}
