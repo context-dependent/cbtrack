@@ -90,10 +90,9 @@
             <td>
                 <a 
                  href="{% url 'cbtrack:manage-records' pay_period.pk %}"
-                 class="btn btn-primary float-right" 
+                 class="btn btn-info font-weight-bold text-light btn-circle shadow-sm m-0"
                 >   
                     {{ pay_period.payrollrecord_set.count }}
-                    <i class="fas fa-pencil text-white"></i>
                 </a>
             </td>
         </tr>
