@@ -1,0 +1,1 @@
+web: gunicorn pycharm_django.wsgi --log-file -
