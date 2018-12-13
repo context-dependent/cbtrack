@@ -45,37 +45,37 @@
 </div> 
 {% if candidate.servicedetail_set.count != 0 %}
     {% for post in candidate.servicedetail_set.all %}
-    <div class="row">
-        <div class="col-md-6">
-            <h4><i class="fas fa-user"></i> {{ post.post_title }}
-            </h4>
-        </div>
-        <div class="col-md-6 text-muted text-right">
-            added on {{ post.candidate.date_added|date:"M d, y" }}
-            <a class="btn btn-primary" href="{% url 'cbtrack:service-detail_update' post.pk %}"><i class="fas fa-pen text-white"></i></a>
-            <a href="{% url 'cbtrack:service-detail_delete' post.pk %}" class="btn btn-danger">
-                <i class="fas fa-times"></i>
-            </a>
-        </div>
-    </div> 
-    <h5>Visible On</h5>
-        <span class="badge {% if post.verified_list %}badge-warning{% else %}badge-grey{% endif %}">
-            Verified List
-        </span>                     
-        <span class="badge {% if post.job_board %}badge-warning{% else %}badge-grey{% endif %}">
-            Job board
-        </span> 
-    <h5>About me</h5>
-    <p>{{ post.about_me }}</p>
-    <h5>How I can help</h5>
-    <p>{{ post.how_help }}</p>
-    <h5>Trade picks</h5>
-    {% for trade in post.top_trade.all %}
-        <span class="badge badge-info">
-            <i class="{{ trade.fa_icon }}"></i> 
-            {{ trade }}
-        </span>
-    {% endfor %}
+    <div class="card mb-1">  
+            <h5 class="card-header text-dark bg-light">
+                {{ post.post_title }}
+                {% if post.service_provider == user %}
+                <a href="{% url 'cbtrack:service-detail_update' post.pk %}" class="btn btn-light btn-circle shadow-sm float-right m-0">
+                    <i class="fas fa-pen text-dark"></i>
+                </a>
+                <a href="{% url 'cbtrack:service-detail_delete' post.pk %}" class="btn btn-light btn-circle shadow-sm float-right m-0">
+                    <i class="fas fa-times text-dark"></i>
+                </a>
+                {% endif %}
+                <small class="text-muted float-right mt-1 mr-2">
+                    Added {{ post.candidate.date_added|date:"M d, y" }}
+                </small> 
+            </h5>
+        <div class="card-body">
+            
+        <p><span class="text-muted">About me</span><br>{{ post.about_me }}</p>
+        <p class="text-muted">How I can help</p>
+        <p>{{ post.how_help }}</p>
+        <p class="text-muted">Preferred trades</p>
+        {% for trade in post.top_trade.all %}
+            <span class="badge badge-info">
+                <i class="{{ trade.fa_icon }}"></i> 
+                {{ trade }}
+            </span>
+        {% endfor %}
+
+        </div>            
+    </div>
+    
     {% endfor %}
 {% elif perms.cbtrack.service_detail_admin %}
 <a href="{% url 'cbtrack:service-detail_create' candidate.pk %}">Add service details for {{candidate.first_name}}</a>
@@ -91,21 +91,28 @@
     <hr class="my-auto flex-grow-1">
 </div> 
 {% for post in candidate.employmentdetail_set.all %}
-<div class="row">
-    <div class="col-md-6">  
-        <h5>{{ post.job_title }} at {{ post.employer.profile.org_name }}</h5>
-    </div>
-    <div class="col-md-6 text-muted text-right">
-        job started {{ post.job_start_date|date:"M d, y" }}
-        <a class="btn btn-primary" href="{% url 'cbtrack:employment-detail_update' post.pk %}"><i class="fas fa-pen text-white"></i></a>
-        <a href="{% url 'cbtrack:employment-detail_delete' post.pk %}" class="btn btn-danger">
-            <i class="fas fa-times"></i>
-        </a>
-    </div>
-</div> 
-<div class="pl-3 ml-1 border border-top-0 border-right-0 border-bottom-0"> 
-<h5>Job description</h5>
-<p>{{ post.job_description }}</p>
+
+<div class="card mb-1">  
+        <h5 class="card-header text-dark bg-light">
+            {{ post.job_title }} at {{ post.employer.profile.org_name }}
+            {% if post.employer == user %}
+            <a href="{% url 'cbtrack:employment-detail_update' post.pk %}" class="btn btn-light btn-circle shadow-sm float-right m-0">
+                <i class="fas fa-pen text-dark"></i>
+            </a>
+            <a href="{% url 'cbtrack:employment-detail_delete' post.pk %}" class="btn btn-light btn-circle shadow-sm float-right m-0">
+                <i class="fas fa-times text-dark"></i>
+            </a>
+            {% endif %}
+            <small class="text-muted float-right mt-1 mr-2">
+                job started {{ post.job_start_date|date:"M d, y" }}
+            </small> 
+        </h5>
+        <div class="card-body">
+            
+        <p><span class="text-muted">Job description</span><br>{{ post.job_description }}</p>
+
+        </div>            
+</div>
 
 {% endfor %}
 </div>

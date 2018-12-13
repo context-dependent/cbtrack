@@ -3,30 +3,27 @@
 {% block main %}
     {% for post in filter.qs %}
             <div class="card mb-1">  
-                    <h5 class="card-header text-dark bg-light">
-                        {{ post.post_title }}
-                        <div class="text-muted float-right ">
-                            Added {{ post.candidate.date_added|date:"M d, y" }}
-                        </div> 
-                    </h5>
-                <div class="card-body">
-                    
-                <p><span class="text-muted">About me</span><br>{{ post.about_me }}</p>
-                <p class="text-muted">How I can help</p>
-                <p>{{ post.how_help }}</p>
-                <p class="text-muted">Preferred trades</p>
-                {% for trade in post.top_trade.all %}
-                    <span class="badge badge-info">
-                        <i class="{{ trade.fa_icon }}"></i> 
-                        {{ trade }}
-                    </span>
-                {% endfor %}
-                <hr>
-                <p class="text-muted">
-                    Contact <a href="{% url 'cbtrack:profile-detail' post.service_provider.profile.pk %}">{{ post.service_provider.profile.org_name }}</a> to learn more!
-                </p>
-                </div>            
-            </div>
+            <h5 class="card-header text-dark bg-light">
+                {{ post.post_title }}
+                <small class="text-muted float-right">
+                    Added {{ post.candidate.date_added|date:"M d, y" }}
+                </small> 
+            </h5>
+        <div class="card-body">
+            
+        <p><span class="text-muted">About me</span><br>{{ post.about_me }}</p>
+        <p class="text-muted">How I can help</p>
+        <p>{{ post.how_help }}</p>
+        <p class="text-muted">Preferred trades</p>
+        {% for trade in post.top_trade.all %}
+            <span class="badge badge-info">
+                <i class="{{ trade.fa_icon }}"></i> 
+                {{ trade }}
+            </span>
+        {% endfor %}
+
+        </div>            
+    </div>
     {% endfor %}
 {% endblock main %}
 {% load widget_tweaks %}

@@ -1,6 +1,11 @@
 {% extends "cbtrack/candidate_detail.html" %}
 
 {% block main %}
+    <div class="card p-3">
+	<h5 class="card-header bg-info text-light">
+		New Employment Detail
+	</h5>
     {% load crispy_forms_tags %}
     {% crispy form %}
+</div>
 {% endblock main %}
