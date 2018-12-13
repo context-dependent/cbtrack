@@ -26,7 +26,7 @@
     		<td>{{ service_detail.candidate.first_name }}</td>
 			<td>{{ service_detail.candidate.last_name }}</td>
 			<td>{{ service_detail.candidate.email }}</td>
-            <td><a href="{% url 'cbtrack:employment-detail_create' service_detail.candidate.pk %}" class="btn btn-primary float-right" value=''><i class="fas fa-plus text-white"></i></a></td>
+            <td><a href="{% url 'cbtrack:employment-detail_create' service_detail.candidate.pk %}" class="btn btn-success text-light btn-circle shadow-sm m-0" value=''><i class="fas fa-plus text-white"></i></a></td>
         </tr>
     	{% endfor %}
     </table>
