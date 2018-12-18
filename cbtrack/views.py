@@ -233,7 +233,9 @@ class JobBoardListView(generic.ListView):
 
 
 def job_board_filter(request):
-    candidate_list = ServiceDetail.objects.filter(job_board=True)
+    candidate_list = ServiceDetail.objects\
+        .filter(job_board=True)\
+        .order_by('-candidate__date_added')
     candidate_filter = JobBoardFilter(request.GET, queryset=candidate_list)
     return render(request, 'cbtrack/job_board_filter.html', {'filter': candidate_filter})
 
