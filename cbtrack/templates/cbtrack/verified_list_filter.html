@@ -35,9 +35,10 @@
 {% load crispy_forms_tags %}
 {% load widget_tweaks %}
 {% block sidebar %}
-    <div class="shadow-sm p-3 mb-2 bg-white rounded">
-        <h4>Filter Candidates</h4>
-
+    <div class="card">
+        <h5 class="card-header text-secondary">Filter Candidates</h5>
+        <div class="card-body">
+            
         <form method="get">
             {% csrf_token %}
             <div class="form-group">
@@ -54,5 +55,6 @@
                 <i class="fas fa-search"></i> Search
             </button>
         </form>
+        </div>
     </div>
 {% endblock sidebar %}

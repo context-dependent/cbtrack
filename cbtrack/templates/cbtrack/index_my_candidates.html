@@ -47,10 +47,10 @@
             </td>
             {% if perms.cbtrack.service_detail_admin %}
             <td>
-                <span class="badge {% if detail.verified_list %}badge-warning{% else %}badge-grey{% endif %}">
+                <span class="badge {% if detail.verified_list %}badge-warning{% else %}badge-light text-secondary{% endif %}">
                     Verified List
                 </span>                     
-                <span class="badge {% if detail.job_board %}badge-warning{% else %}badge-light{% endif %}">
+                <span class="badge {% if detail.job_board %}badge-warning{% else %}badge-light text-secondary{% endif %}">
                     Job board
                 </span> 
             </td>

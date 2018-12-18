@@ -160,6 +160,7 @@ class EmploymentDetail(models.Model):
     job_title = models.CharField(max_length=100)
     job_description = models.TextField(max_length=280)
     job_start_date = models.DateField()
+    # job_end_date = models.DateField(blank=True, null=True)
 
     def get_hours_worked(self):
         hours_worked = PayrollRecord.objects \
